@@ -1,9 +1,53 @@
 // Sannivesham Aksharam — main.js
+// Runs on every page: mobile nav toggle (all pages) + hero letter-cycle (index only).
 
 document.addEventListener('DOMContentLoaded', () => {
+  initMobileNav();
   initLetterCycle();
 });
 
+// ---------- MOBILE NAV (hamburger menu) ----------
+// Fix: on phones the old CSS hid every nav link except "Sign in" with no way
+// to open Courses / Translator / Dictionary. This adds a working slide-in menu.
+function initMobileNav() {
+  const toggle = document.getElementById('navToggle');
+  const nav = document.getElementById('mainNav');
+  const overlay = document.getElementById('navOverlay');
+  if (!toggle || !nav || !overlay) return;
+
+  const closeNav = () => {
+    toggle.classList.remove('is-open');
+    nav.classList.remove('is-open');
+    overlay.classList.remove('is-open');
+    toggle.setAttribute('aria-expanded', 'false');
+    document.body.classList.remove('nav-locked');
+  };
+
+  const openNav = () => {
+    toggle.classList.add('is-open');
+    nav.classList.add('is-open');
+    overlay.classList.add('is-open');
+    toggle.setAttribute('aria-expanded', 'true');
+    document.body.classList.add('nav-locked');
+  };
+
+  toggle.addEventListener('click', () => {
+    const isOpen = nav.classList.contains('is-open');
+    if (isOpen) closeNav(); else openNav();
+  });
+
+  overlay.addEventListener('click', closeNav);
+  nav.querySelectorAll('a').forEach((link) => link.addEventListener('click', closeNav));
+  window.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeNav(); });
+
+  // If the viewport is resized past the mobile breakpoint while the menu is
+  // open, reset everything so it doesn't get stuck open on desktop.
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 720) closeNav();
+  });
+}
+
+// ---------- HERO LETTER CYCLE (index.html only) ----------
 function initLetterCycle() {
   const letterEl = document.getElementById('cycleLetter');
   const translitEl = document.getElementById('cycleTranslit');
