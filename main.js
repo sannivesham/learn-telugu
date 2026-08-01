@@ -1,7 +1,42 @@
-// Nerchuko Telugu — main.js
-// Placeholder for shared site behavior (nav state, auth status display, etc.)
-// Firebase config + auth wiring will be added once the Firebase project is set up.
+// Sannivesham Aksharam — main.js
 
 document.addEventListener('DOMContentLoaded', () => {
-  // Intentionally minimal for now.
+  initLetterCycle();
 });
+
+function initLetterCycle() {
+  const letterEl = document.getElementById('cycleLetter');
+  const translitEl = document.getElementById('cycleTranslit');
+  if (!letterEl || !translitEl) return;
+
+  // The full Telugu అక్షరమాల (akshara-mala) — vowels, then consonants, in order.
+  const aksharamu = [
+    { te: 'అ', en: 'a' }, { te: 'ఆ', en: 'aa' }, { te: 'ఇ', en: 'i' }, { te: 'ఈ', en: 'ii' },
+    { te: 'ఉ', en: 'u' }, { te: 'ఊ', en: 'uu' }, { te: 'ఋ', en: 'ru' }, { te: 'ఎ', en: 'e' },
+    { te: 'ఏ', en: 'ee' }, { te: 'ఐ', en: 'ai' }, { te: 'ఒ', en: 'o' }, { te: 'ఓ', en: 'oo' },
+    { te: 'ఔ', en: 'au' },
+    { te: 'క', en: 'ka' }, { te: 'ఖ', en: 'kha' }, { te: 'గ', en: 'ga' }, { te: 'ఘ', en: 'gha' },
+    { te: 'చ', en: 'cha' }, { te: 'జ', en: 'ja' }, { te: 'ట', en: 'Ta' }, { te: 'డ', en: 'Da' },
+    { te: 'ణ', en: 'Na' }, { te: 'త', en: 'ta' }, { te: 'ద', en: 'da' }, { te: 'న', en: 'na' },
+    { te: 'ప', en: 'pa' }, { te: 'బ', en: 'ba' }, { te: 'మ', en: 'ma' }, { te: 'య', en: 'ya' },
+    { te: 'ర', en: 'ra' }, { te: 'ల', en: 'la' }, { te: 'వ', en: 'va' }, { te: 'శ', en: 'sha' },
+    { te: 'స', en: 'sa' }, { te: 'హ', en: 'ha' }, { te: 'ళ', en: 'La' }, { te: 'ఱ', en: 'Ra' }
+  ];
+
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const intervalMs = prefersReducedMotion ? 3200 : 1300;
+  let i = 0;
+
+  setInterval(() => {
+    i = (i + 1) % aksharamu.length;
+    letterEl.classList.add('letter-swap');
+    translitEl.classList.add('letter-swap');
+
+    setTimeout(() => {
+      letterEl.textContent = aksharamu[i].te;
+      translitEl.textContent = aksharamu[i].en;
+      letterEl.classList.remove('letter-swap');
+      translitEl.classList.remove('letter-swap');
+    }, 350);
+  }, intervalMs);
+}
