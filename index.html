@@ -50,15 +50,15 @@
 
     <div class="hero-visual" aria-hidden="true">
       <div class="glow-orb"></div>
-      <svg viewBox="0 0 320 320" class="letter-svg">
-        <circle cx="160" cy="160" r="150" class="letter-ring"/>
-        <circle cx="160" cy="160" r="150" class="letter-ring-dash"/>
-        <path id="letterStroke" class="letter-path"
-          d="M110 90 C90 90 78 110 78 140 C78 190 110 230 150 230 C175 230 190 210 190 190
-             C190 170 175 158 158 158 C145 158 136 168 136 180
-             M190 90 L190 230 M190 90 C210 90 226 106 226 128 C226 150 210 166 190 166"/>
-      </svg>
-      <span class="letter-caption">అ <span class="mono-tag">a</span></span>
+      <div class="letter-badge">
+        <span class="badge-ring"></span>
+        <span class="badge-ring badge-ring--dash"></span>
+        <span class="cycle-letter" id="cycleLetter">అ</span>
+      </div>
+      <div class="letter-caption">
+        <span class="mono-tag" id="cycleTranslit">a</span>
+        <span class="caption-note">అ to ఱ — the full అక్షరమాల</span>
+      </div>
     </div>
   </section>
 
