@@ -3,15 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Nerchuko Telugu — Learn Telugu Online</title>
+<title>Sannivesham Aksharam — Learn Telugu Online</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Ramabhadra&family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Work+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Ramabhadra&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
+<div class="ambient-letters" aria-hidden="true">
+  <span style="--x:6%; --dur:22s; --delay:0s;">అ</span>
+  <span style="--x:18%; --dur:28s; --delay:3s;">క</span>
+  <span style="--x:32%; --dur:24s; --delay:6s;">ష</span>
+  <span style="--x:48%; --dur:30s; --delay:1s;">ర</span>
+  <span style="--x:63%; --dur:26s; --delay:8s;">ఆ</span>
+  <span style="--x:77%; --dur:23s; --delay:4s;">మ</span>
+  <span style="--x:88%; --dur:29s; --delay:10s;">ఇ</span>
+  <span style="--x:95%; --dur:25s; --delay:2s;">తె</span>
+</div>
+
 <header class="site-header">
-  <a href="index.html" class="logo">నేర్చుకో <span class="logo-en">Nerchuko</span></a>
+  <a href="index.html" class="logo">సన్నివేశం అక్షరం <span class="logo-en">Sannivesham Aksharam</span></a>
   <nav class="main-nav">
     <a href="courses.html">Courses</a>
     <a href="translator.html">Translator</a>
@@ -21,21 +32,27 @@
 </header>
 
 <main>
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-text">
-      <p class="eyebrow">తెలుగు నేర్చుకుందాం <span class="mono-tag">telugu nerchukundam</span></p>
-      <h1>Let's learn<br>Telugu<span class="accent-dot">.</span></h1>
-      <p class="hero-sub">From your first letter to your first full sentence — structured courses, a live translator, and daily practice built for absolute beginners and fluent readers alike.</p>
+      <p class="eyebrow"><span class="pulse-dot"></span> తెలుగు నేర్చుకుందాం <span class="mono-tag">telugu nerchukundam</span></p>
+      <h1>Every letter<br>has a <span class="text-gradient">story.</span></h1>
+      <p class="hero-sub">From your first అక్షరం to your first full sentence — structured courses, a live translator, and daily practice built for absolute beginners and fluent readers alike.</p>
       <div class="hero-actions">
-        <a href="courses.html" class="btn btn-primary">Start learning</a>
+        <a href="courses.html" class="btn btn-primary">Start learning →</a>
         <a href="translator.html" class="btn btn-ghost">Try the translator</a>
+      </div>
+      <div class="hero-tags">
+        <span class="mini-tag">🔤 Alphabet to fluency</span>
+        <span class="mini-tag">🔊 Live pronunciation</span>
+        <span class="mini-tag">🌐 English ⇄ Telugu</span>
       </div>
     </div>
 
     <div class="hero-visual" aria-hidden="true">
+      <div class="glow-orb"></div>
       <svg viewBox="0 0 320 320" class="letter-svg">
         <circle cx="160" cy="160" r="150" class="letter-ring"/>
+        <circle cx="160" cy="160" r="150" class="letter-ring-dash"/>
         <path id="letterStroke" class="letter-path"
           d="M110 90 C90 90 78 110 78 140 C78 190 110 230 150 230 C175 230 190 210 190 190
              C190 170 175 158 158 158 C145 158 136 168 136 180
@@ -45,8 +62,45 @@
     </div>
   </section>
 
-  <!-- COURSE PATH -->
+  <section class="features">
+    <div class="features-head">
+      <p class="eyebrow-small">ఎలా నేర్చుకోవాలి <span class="mono-tag">how it works</span></p>
+      <h2>Everything you need, in one place</h2>
+    </div>
+
+    <div class="feature-grid">
+      <a href="courses.html" class="feature-card feature-card--maroon">
+        <div class="feature-icon">📚</div>
+        <h3>Structured courses</h3>
+        <p>Four levels, alphabet to literary Telugu, each lesson building on the last.</p>
+        <span class="feature-link">Browse courses →</span>
+      </a>
+
+      <a href="translator.html" class="feature-card feature-card--teal">
+        <div class="feature-icon">🔁</div>
+        <h3>Live translator</h3>
+        <p>Type in English or Telugu, get instant translation with pronunciation.</p>
+        <span class="feature-link">Open translator →</span>
+      </a>
+
+      <a href="dictionary.html" class="feature-card feature-card--gold">
+        <div class="feature-icon">🔎</div>
+        <h3>Searchable dictionary</h3>
+        <p>Every word from every lesson, cross-referenced and always one search away.</p>
+        <span class="feature-link">Search words →</span>
+      </a>
+
+      <a href="courses.html" class="feature-card feature-card--maroon">
+        <div class="feature-icon">🎯</div>
+        <h3>Quizzes that stick</h3>
+        <p>Every lesson ends with a quiz — get it right before you move on.</p>
+        <span class="feature-link">See a sample →</span>
+      </a>
+    </div>
+  </section>
+
   <section class="path-section">
+    <p class="eyebrow-small centered">నాలుగు మెట్లు <span class="mono-tag">four steps</span></p>
     <h2>Your path, four stops</h2>
     <p class="section-sub">Each level builds on the last. Finish one to unlock the next.</p>
 
@@ -55,44 +109,77 @@
         <span class="stop-index">01</span>
         <h3>Foundations</h3>
         <p>Vowels, consonants, numbers, greetings — the building blocks.</p>
+        <span class="stop-tag">7 lessons</span>
       </li>
       <li class="path-stop">
         <span class="stop-index">02</span>
         <h3>Elementary</h3>
         <p>Pronouns, simple sentences, everyday phrases you'll actually use.</p>
+        <span class="stop-tag stop-tag--soon">coming soon</span>
       </li>
       <li class="path-stop">
         <span class="stop-index">03</span>
         <h3>Intermediate</h3>
         <p>Grammar cases, conjunctions, idioms, and real conversation.</p>
+        <span class="stop-tag stop-tag--soon">coming soon</span>
       </li>
       <li class="path-stop">
         <span class="stop-index">04</span>
         <h3>Advanced</h3>
         <p>Literary Telugu, unassisted reading, dialects, and culture.</p>
+        <span class="stop-tag stop-tag--soon">coming soon</span>
       </li>
     </ol>
   </section>
 
-  <!-- TRANSLATOR TEASER -->
+  <section class="culture-strip">
+    <div class="culture-glyph" aria-hidden="true">తె</div>
+    <blockquote>
+      <p>“దేశ భాషలందు తెలుగు లెస్స”</p>
+      <cite>Among the languages of the land, Telugu is the sweetest — Sri Krishnadevaraya</cite>
+    </blockquote>
+  </section>
+
   <section class="translator-teaser">
     <div class="teaser-copy">
+      <p class="eyebrow-small">అనువాదకుడు <span class="mono-tag">translator</span></p>
       <h2>Stuck on a word?</h2>
-      <p>Type in English or Telugu — get an instant translation with pronunciation.</p>
-      <a href="translator.html" class="btn btn-primary">Open translator</a>
+      <p>Type in English or Telugu — get an instant translation with pronunciation, right when you need it.</p>
+      <a href="translator.html" class="btn btn-primary">Open translator →</a>
     </div>
     <div class="teaser-demo" aria-hidden="true">
+      <div class="teaser-demo-glow"></div>
       <div class="demo-row">
+        <span class="demo-label">TYPE</span>
         <span class="demo-en">how are you</span>
-        <span class="demo-arrow">→</span>
+      </div>
+      <div class="demo-arrow-row">↓</div>
+      <div class="demo-row">
+        <span class="demo-label">RESULT</span>
         <span class="demo-te">ఎలా ఉన్నారు<span class="mono-tag">elaa unnaru</span></span>
       </div>
     </div>
   </section>
+
+  <section class="final-cta">
+    <h2>మొదటి అక్షరం మొదలుపెడదాం</h2>
+    <p class="mono-tag mono-tag--lg">modati aksharam modalu pedadam — let's start with the first letter</p>
+    <a href="courses.html" class="btn btn-primary btn-lg">Begin Level 1 →</a>
+  </section>
 </main>
 
 <footer class="site-footer">
-  <p>నేర్చుకో · a companion project to <a href="#">Sannivesham</a></p>
+  <div class="footer-grid">
+    <div>
+      <p class="footer-logo">సన్నివేశం అక్షరం</p>
+      <p class="footer-tag">a companion project to <a href="#">Sannivesham</a></p>
+    </div>
+    <div class="footer-links">
+      <a href="courses.html">Courses</a>
+      <a href="translator.html">Translator</a>
+      <a href="dictionary.html">Dictionary</a>
+    </div>
+  </div>
 </footer>
 
 <script src="main.js"></script>
