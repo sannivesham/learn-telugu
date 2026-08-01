@@ -140,38 +140,64 @@ a { color: inherit; text-decoration: none; }
   justify-content: center;
 }
 
-.letter-svg { width: min(320px, 80%); }
-.letter-ring {
-  fill: none;
-  stroke: var(--gold);
-  stroke-width: 1.5;
-  opacity: 0.35;
-}
-.letter-path {
-  fill: none;
-  stroke: var(--maroon);
-  stroke-width: 10;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-  stroke-dasharray: 900;
-  stroke-dashoffset: 900;
-  animation: drawLetter 3.2s ease-in-out infinite;
-}
-@keyframes drawLetter {
-  0%   { stroke-dashoffset: 900; }
-  45%  { stroke-dashoffset: 0; }
-  75%  { stroke-dashoffset: 0; }
-  100% { stroke-dashoffset: -900; }
-}
-.letter-caption {
-  font-family: var(--font-telugu);
-  font-size: 1.4rem;
-  color: var(--ink);
-  margin-top: 0.5rem;
+.letter-badge {
+  position: relative;
+  width: min(320px, 80%);
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, var(--maroon) 0%, var(--maroon-dark) 65%, #3d0f24 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 24px 48px -20px rgba(89, 22, 54, 0.55);
 }
 
+.badge-ring {
+  position: absolute;
+  inset: 14px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(201, 162, 39, 0.4);
+}
+.badge-ring--dash {
+  inset: 0;
+  border: 1px dashed rgba(250, 246, 240, 0.25);
+  animation: rotateRing 40s linear infinite;
+}
 @media (prefers-reduced-motion: reduce) {
-  .letter-path { animation: none; stroke-dashoffset: 0; }
+  .badge-ring--dash { animation: none; }
+}
+
+.cycle-letter {
+  font-family: var(--font-telugu);
+  font-size: clamp(4.5rem, 9vw, 7rem);
+  color: var(--ivory);
+  text-shadow: 0 0 28px rgba(201, 162, 39, 0.45);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  opacity: 1;
+  transform: scale(1);
+}
+.cycle-letter.letter-swap {
+  opacity: 0;
+  transform: scale(0.82);
+}
+
+.letter-caption {
+  margin-top: 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.letter-caption .mono-tag {
+  margin-left: 0;
+  font-size: 0.9rem;
+  transition: opacity 0.35s ease;
+}
+.letter-caption .mono-tag.letter-swap { opacity: 0; }
+.caption-note {
+  font-family: var(--font-telugu);
+  font-size: 0.95rem;
+  color: var(--ink-soft);
 }
 
 /* ---------- PATH SECTION ---------- */
