@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — Sannivesham Aksharam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Ramabhadra&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,900&family=Work+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root {
+  --maroon: #7A2048;
+  --maroon-dark: #591636;
+  --gold: #C9A227;
+  --teal: #1F6F5C;
+  --ivory: #FAF6F0;
+  --ivory-deep: #F1EADD;
+  --ink: #241B2F;
+  --ink-soft: #5B5265;
+
+  --font-telugu: 'Ramabhadra', sans-serif;
+  --font-display: 'Fraunces', serif;
+  --font-body: 'Work Sans', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* { box-sizing: border-box; }
+
+html { overflow-x: hidden; }
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: var(--font-body);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+a { color: inherit; text-decoration: none; }
+
+.mono-tag {
+  font-family: var(--font-mono);
+  font-size: 0.62em;
+  font-weight: 500;
+  color: var(--teal);
+  background: rgba(31, 111, 92, 0.09);
+  border: 1px solid rgba(31, 111, 92, 0.22);
+  border-radius: 4px;
+  padding: 0.12em 0.5em;
+  margin-left: 0.5em;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  vertical-align: middle;
+}
+.mono-tag--lg {
+  display: inline-block;
+  font-size: 0.85rem;
+  padding: 0.4rem 1rem;
+  margin-bottom: 2rem;
+}
+
+/* Shared typography utilities used across index / courses / lesson pages */
+.eyebrow {
+  font-family: var(--font-telugu);
+  font-size: 1.1rem;
+  color: var(--maroon);
+  margin: 0 0 1rem;
+}
+.eyebrow-small {
+  font-family: var(--font-telugu);
+  color: var(--maroon);
+  font-size: 0.95rem;
+  margin: 0 0 0.6rem;
+}
+.eyebrow-small.centered { text-align: center; }
+.hero-sub {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: var(--ink-soft);
+  max-width: 34rem;
+  margin: 0 0 2.2rem;
+}
+.section-sub {
+  text-align: center;
+  color: var(--ink-soft);
+  margin: 0 0 3rem;
+}
+.stop-index {
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  color: var(--teal);
+  font-weight: 500;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.85rem 1.8rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.98rem;
+  transition: transform 0.15s ease, background 0.15s ease;
+  border: none;
+  cursor: pointer;
+}
+.btn:hover { transform: translateY(-1px); }
+.btn-primary { background: var(--maroon); color: var(--ivory); }
+.btn-primary:hover { background: var(--maroon-dark); }
+.btn-ghost {
+  background: transparent;
+  color: var(--maroon);
+  border: 1.5px solid var(--maroon);
+}
+.btn-ghost:hover { background: rgba(122, 32, 72, 0.06); }
+.btn-disabled { opacity: 0.5; pointer-events: none; }
+.btn-lg { padding: 1rem 2.2rem; font-size: 1.05rem; }
+
+/* ---------- HEADER + NAV ---------- */
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 1.3rem 6vw;
+  position: relative;
+  z-index: 200;
+}
+
+.logo {
+  font-family: var(--font-telugu);
+  font-size: 1.5rem;
+  color: var(--maroon-dark);
+  display: inline-flex;
+  align-items: center;
+  flex-wrap: wrap;
+  min-width: 0;
+}
+.logo-en {
+  font-family: var(--font-mono);
+  font-size: 0.6rem;
+  color: var(--ink-soft);
+  letter-spacing: 0.08em;
+  margin-left: 0.4rem;
+  vertical-align: middle;
+}
+
+.main-nav { display: flex; align-items: center; gap: 2rem; }
+.main-nav a {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+.main-nav a:hover { color: var(--maroon); }
+.main-nav a.active { color: var(--maroon); font-weight: 600; }
+.nav-cta {
+  background: var(--maroon);
+  color: var(--ivory) !important;
+  padding: 0.55rem 1.3rem;
+  border-radius: 999px;
+}
+.nav-cta:hover { background: var(--maroon-dark); }
+
+/* Hamburger toggle button (hidden on desktop) */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 36px;
+  height: 36px;
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  z-index: 220;
+  flex-shrink: 0;
+}
+.nav-toggle span {
+  display: block;
+  height: 2px;
+  width: 100%;
+  background: var(--maroon-dark);
+  border-radius: 2px;
+  transition: transform 0.25s ease, opacity 0.2s ease;
+}
+.nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+.nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+.nav-overlay { display: none; }
+
+@media (max-width: 720px) {
+  .nav-toggle { display: flex; }
+
+  .main-nav {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100dvh;
+    width: min(80vw, 320px);
+    background: var(--ivory);
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.2rem;
+    padding: 6rem 2rem 2rem;
+    box-shadow: -14px 0 36px -16px rgba(36, 27, 47, 0.3);
+    transform: translateX(100%);
+    transition: transform 0.3s ease;
+    z-index: 210;
+  }
+  .main-nav.is-open { transform: translateX(0); }
+  .main-nav a {
+    width: 100%;
+    padding: 0.85rem 0;
+    font-size: 1.05rem;
+    border-bottom: 1px solid rgba(122, 32, 72, 0.1);
+  }
+  .main-nav a.nav-cta {
+    text-align: center;
+    margin-top: 1rem;
+    border-bottom: none;
+  }
+
+  .nav-overlay {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(36, 27, 47, 0.42);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    z-index: 205;
+  }
+  .nav-overlay.is-open { opacity: 1; pointer-events: auto; }
+
+  body.nav-locked { overflow: hidden; }
+}
+
+/* ---------- FOOTER ---------- */
+.site-footer { text-align: left; padding: 3rem 0 2.5rem; color: var(--ink-soft); font-size: 0.9rem; }
+.footer-grid {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  max-width: 80rem;
+  margin: 0 auto;
+  padding: 0 6vw;
+}
+.footer-logo {
+  font-family: var(--font-telugu);
+  font-size: 1.2rem;
+  color: var(--maroon-dark);
+  margin: 0 0 0.3rem;
+}
+.footer-tag { margin: 0; font-size: 0.85rem; }
+.footer-tag a { color: var(--maroon); font-weight: 600; }
+.footer-links { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+.footer-links a { font-size: 0.9rem; color: var(--ink-soft); }
+.footer-links a:hover { color: var(--maroon); }
+
+@media (max-width: 560px) {
+  .footer-grid { flex-direction: column; align-items: flex-start; }
+}
+
+/* ---------- COMING SOON PAGE ---------- */
+.coming-soon {
+  min-height: 60vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 4rem 6vw 5rem;
+}
+.coming-soon .glyph {
+  font-family: var(--font-telugu);
+  font-size: clamp(3.5rem, 10vw, 6rem);
+  color: var(--maroon);
+  opacity: 0.15;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.coming-soon h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  margin: 0 0 0.8rem;
+  color: var(--ink);
+}
+.coming-soon p {
+  color: var(--ink-soft);
+  max-width: 30rem;
+  line-height: 1.6;
+  margin: 0 0 2rem;
+}
+.coming-soon .btn-row { display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center; }
+.nav-cta.active { background: var(--maroon-dark); }
+
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <a href="index.html" class="logo">సన్నివేశం అక్షరం <span class="logo-en">Sannivesham Aksharam</span></a>
+  <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+    <span></span><span></span><span></span>
+  </button>
+  <nav class="main-nav" id="mainNav">
+    <a href="courses.html">Courses</a>
+    <a href="translator.html">Translator</a>
+    <a href="dictionary.html">Dictionary</a>
+    <a href="profile.html" class="nav-cta active">Sign in</a>
+  </nav>
+  <div class="nav-overlay" id="navOverlay"></div>
+</header>
+
+<main>
+  <section class="coming-soon">
+    <div class="glyph" aria-hidden="true">సం</div>
+    <h1>Sign in is coming soon</h1>
+    <p>Accounts, saved progress, and a personal learning path are on the way. For now you can jump straight into the lessons — no sign-in required.</p>
+    <div class="btn-row">
+      <a href="courses.html" class="btn btn-primary">Start learning →</a>
+      <a href="index.html" class="btn btn-ghost">Back to home</a>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="footer-grid">
+    <div>
+      <p class="footer-logo">సన్నివేశం అక్షరం</p>
+      <p class="footer-tag">a companion project to <a href="#">Sannivesham</a></p>
+    </div>
+    <div class="footer-links">
+      <a href="courses.html">Courses</a>
+      <a href="translator.html">Translator</a>
+      <a href="dictionary.html">Dictionary</a>
+    </div>
+  </div>
+</footer>
+
+<script src="main.js"></script>
+</body>
+</html>
