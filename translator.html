@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Translator — Sannivesham Aksharam</title>
+  <link rel="icon" type="image/png" href="logo.png">
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -434,20 +435,87 @@
       color: var(--text-dim);
     }
 
+    /* Hamburger toggle button */
+    .nav-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      background: none;
+      border: none;
+      padding: 0;
+      cursor: pointer;
+      z-index: 220;
+      flex-shrink: 0;
+    }
+    .nav-toggle span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: var(--maroon);
+      border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease;
+    }
+    .nav-toggle.is-open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    .nav-toggle.is-open span:nth-child(2) { opacity: 0; }
+    .nav-toggle.is-open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(36, 27, 47, 0.42);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      z-index: 205;
+    }
+    .nav-overlay.is-open { opacity: 1; pointer-events: auto; }
+
     /* ── RESPONSIVE ── */
-    @media (max-width: 700px) {
+    @media (max-width: 720px) {
+      .nav-toggle { display: flex; }
+      .nav-links {
+        position: fixed;
+        top: 0; right: 0;
+        height: 100dvh;
+        width: min(80vw, 320px);
+        background: var(--cream);
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.5rem;
+        padding: 6rem 2rem 2rem;
+        box-shadow: -14px 0 36px -16px rgba(36, 27, 47, 0.3);
+        transform: translateX(100%);
+        transition: transform 0.3s ease;
+        z-index: 210;
+      }
+      .nav-links.is-open { transform: translateX(0); }
+      .nav-links a {
+        width: 100%;
+        padding: 0.85rem 0;
+        font-size: 1.05rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .nav-links a.nav-signin {
+        text-align: center;
+        margin-top: 1rem;
+        border-bottom: none;
+        display: block;
+        width: 100%;
+      }
+      .nav-overlay { display: block; }
+      body.nav-locked { overflow: hidden; }
+
       .translator-grid { grid-template-columns: 1fr; }
       .features-grid { grid-template-columns: 1fr; }
       .page-title { font-size: 2rem; }
       nav { padding: 0 20px; }
-      .nav-links { gap: 16px; }
       .page { padding: 40px 16px 80px; }
       .hint-text { display: none; }
-      footer { flex-direction: column; gap: 8px; text-align: center; }
-    }
-
-    @media (max-width: 480px) {
-      .nav-links a:not(.nav-signin) { display: none; }
+      footer { flex-direction: column; gap: 12px; text-align: center; }
     }
   </style>
 </head>
@@ -459,12 +527,16 @@
       <span class="nav-brand-te">సన్నివేశం అక్షరం</span>
       <span class="nav-brand-en">Sannivesham Aksharam</span>
     </a>
-    <div class="nav-links">
+    <button class="nav-toggle" id="navToggle" type="button" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainNav">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="mainNav">
       <a href="courses.html">Courses</a>
       <a href="translator.html" class="active">Translator</a>
       <a href="dictionary.html">Dictionary</a>
-      <a href="#" class="nav-signin">Sign in</a>
+      <a href="signin.html" class="nav-signin" id="authLink">Sign In</a>
     </div>
+    <div class="nav-overlay" id="navOverlay"></div>
   </nav>
 
   <div class="page">
@@ -566,8 +638,17 @@
 
   <!-- FOOTER -->
   <footer>
-    <span>© 2026 సన్నివేశం అక్షరం</span>
-    <span>Telugu ⇄ English · Free · No login required</span>
+    <div style="display:flex; flex-direction:column; gap:4px;">
+      <span style="font-weight:600; color:var(--maroon);">© 2026 సన్నివేశం అక్షరం</span>
+      <span>A companion project to <a href="https://sannivesham.com" target="_blank" rel="noopener" style="color:var(--maroon); font-weight:600; text-decoration:none;">Sannivesham</a></span>
+    </div>
+    <div style="display:flex; gap:16px; flex-wrap:wrap; align-items:center;">
+      <a href="courses.html" style="color:var(--text-dim); text-decoration:none;">Courses</a>
+      <a href="translator.html" style="color:var(--maroon); text-decoration:none; font-weight:600;">Translator</a>
+      <a href="dictionary.html" style="color:var(--text-dim); text-decoration:none;">Dictionary</a>
+      <a href="contact.html" style="color:var(--text-dim); text-decoration:none;">Contact</a>
+      <a href="pp.html" style="color:var(--text-dim); text-decoration:none;">Privacy Policy</a>
+    </div>
   </footer>
 
   <script>
@@ -621,7 +702,7 @@
       renderPhrases();
     }
 
-    swapBtn.addEventListener("click", () => {
+    function handleSwap() {
       const prev = outputText.innerText;
       const hasOutput = !outputText.querySelector(".t-output-placeholder");
       [fromLang, toLang] = [toLang, fromLang];
@@ -632,6 +713,14 @@
       outputText.innerHTML = `<span class="t-output-placeholder">${fromLang === "te" ? "అనువాదం ఇక్కడ కనిపిస్తుంది..." : "Translation appears here..."}</span>`;
       errorMsg.classList.remove("show");
       updateUI();
+    }
+
+    swapBtn.addEventListener("click", handleSwap);
+    fromTab.addEventListener("click", () => {
+      if (fromLang !== "te") handleSwap();
+    });
+    toTab.addEventListener("click", () => {
+      if (fromLang !== "en") handleSwap();
     });
 
     clearBtn.addEventListener("click", () => {
@@ -718,5 +807,6 @@
     updateUI();
   </script>
 
+  <script type="module" src="main.js"></script>
 </body>
 </html>

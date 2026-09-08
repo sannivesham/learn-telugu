@@ -18,15 +18,33 @@ const forgotBtn = document.getElementById("forgotBtn");
 const message = document.getElementById("message");
 
 function showMessage(text, success = false) {
-
     message.textContent = text;
-
-    message.style.color = success
-        ? "#1F6F5C"
-        : "#C62828";
-
+    message.style.color = success ? "#1F6F5C" : "#C62828";
 }
 
+function getFriendlyErrorMessage(error) {
+    const code = error?.code || '';
+    const msg = error?.message || '';
+    if (code.includes('invalid-credential') || code.includes('user-not-found') || code.includes('wrong-password')) {
+        return "Invalid email or password. Please try again.";
+    }
+    if (code.includes('email-already-in-use')) {
+        return "An account already exists with this email. Please sign in instead.";
+    }
+    if (code.includes('invalid-email')) {
+        return "Please enter a valid email address.";
+    }
+    if (code.includes('weak-password')) {
+        return "Password must be at least 6 characters.";
+    }
+    if (code.includes('popup-closed-by-user') || code.includes('cancelled-popup-request')) {
+        return "Sign-in popup was closed.";
+    }
+    if (code.includes('too-many-requests')) {
+        return "Too many attempts. Please try again in a minute.";
+    }
+    return msg || "An error occurred. Please try again.";
+}
 
 // -----------------------
 // Sign In
@@ -50,17 +68,13 @@ loginBtn.addEventListener("click", async () => {
         showMessage("Login successful!", true);
 
         setTimeout(() => {
-
             window.location.href = "profile.html";
-
         }, 700);
 
     }
 
     catch (error) {
-
-        showMessage(error.message);
-
+        showMessage(getFriendlyErrorMessage(error));
     }
 
 });
@@ -108,9 +122,7 @@ signupBtn.addEventListener("click", async () => {
     }
 
     catch (error) {
-
-        showMessage(error.message);
-
+        showMessage(getFriendlyErrorMessage(error));
     }
 
 });
@@ -126,11 +138,8 @@ googleBtn.addEventListener("click", async () => {
     try {
 
         await signInWithPopup(
-
             auth,
-
             provider
-
         );
 
         window.location.href = "profile.html";
@@ -138,9 +147,7 @@ googleBtn.addEventListener("click", async () => {
     }
 
     catch (error) {
-
-        showMessage(error.message);
-
+        showMessage(getFriendlyErrorMessage(error));
     }
 
 });
@@ -155,37 +162,26 @@ googleBtn.addEventListener("click", async () => {
 forgotBtn.addEventListener("click", async () => {
 
     if (!email.value) {
-
         showMessage("Enter your email first.");
-
         return;
-
     }
 
     try {
 
         await sendPasswordResetEmail(
-
             auth,
-
             email.value
-
         );
 
         showMessage(
-
-            "Password reset email sent.",
-
+            "Password reset email sent. Check your inbox.",
             true
-
         );
 
     }
 
     catch (error) {
-
-        showMessage(error.message);
-
+        showMessage(getFriendlyErrorMessage(error));
     }
 
 });

@@ -11,6 +11,7 @@ const wordBank = [
   { te: 'ఉ', translit: 'u', en: "u (as in 'put')", lesson: 'Vowels' },
   { te: 'ఊ', translit: 'uu', en: "oo (as in 'boot')", lesson: 'Vowels' },
   { te: 'ఋ', translit: 'ru', en: "ri (rare in modern use)", lesson: 'Vowels' },
+  { te: 'ౠ', translit: 'ruu', en: "ruu (long ru, traditional vowel)", lesson: 'Vowels' },
   { te: 'ఎ', translit: 'e', en: "e (as in 'bet')", lesson: 'Vowels' },
   { te: 'ఏ', translit: 'ee', en: "ay (as in 'may')", lesson: 'Vowels' },
   { te: 'ఐ', translit: 'ai', en: "ai (as in 'aisle')", lesson: 'Vowels' },
@@ -91,10 +92,22 @@ function renderResults(list) {
   });
 }
 
+let teluguVoice = null;
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  teluguVoice = voices.find(v => v.lang === 'te-IN' || v.lang.startsWith('te')) || null;
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
 function speakTelugu(text, cardEl) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
+  if (teluguVoice) utter.voice = teluguVoice;
   utter.lang = 'te-IN';
   utter.rate = 0.85;
   if (cardEl) cardEl.classList.add('dict-playing');

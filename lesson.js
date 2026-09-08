@@ -12,6 +12,7 @@ const lessonData = {
     { te: 'ఉ', translit: 'u',   en: "u (as in 'put')" },
     { te: 'ఊ', translit: 'uu',  en: "oo (as in 'boot')" },
     { te: 'ఋ', translit: 'ru',  en: "ri (rare in modern use)" },
+    { te: 'ౠ', translit: 'ruu', en: "ruu (long ru, traditional vowel)" },
     { te: 'ఎ', translit: 'e',   en: "e (as in 'bet')" },
     { te: 'ఏ', translit: 'ee',  en: "ay (as in 'may')" },
     { te: 'ఐ', translit: 'ai',  en: "ai (as in 'aisle')" },
@@ -71,10 +72,22 @@ function renderVocabGrid() {
   });
 }
 
+let teluguVoice = null;
+function loadVoices() {
+  if (!('speechSynthesis' in window)) return;
+  const voices = window.speechSynthesis.getVoices();
+  teluguVoice = voices.find(v => v.lang === 'te-IN' || v.lang.startsWith('te')) || null;
+}
+if ('speechSynthesis' in window) {
+  loadVoices();
+  window.speechSynthesis.onvoiceschanged = loadVoices;
+}
+
 function speakTelugu(text, cardEl) {
   if (!('speechSynthesis' in window)) return;
   window.speechSynthesis.cancel();
   const utter = new SpeechSynthesisUtterance(text);
+  if (teluguVoice) utter.voice = teluguVoice;
   utter.lang = 'te-IN';
   utter.rate = 0.85;
 
@@ -185,5 +198,35 @@ function showQuizResult() {
   const nextBtn = document.getElementById('nextLessonBtn');
   if (passed) {
     nextBtn.classList.remove('btn-disabled');
+
+    // Save lesson completion
+    localStorage.setItem('aksharam_l1_passed', 'true');
+
+    try {
+      let completed = JSON.parse(localStorage.getItem('aksharam_completed_lessons') || '[]');
+      if (!completed.includes('l1-vowels')) {
+        completed.push('l1-vowels');
+        localStorage.setItem('aksharam_completed_lessons', JSON.stringify(completed));
+      }
+
+      // Update daily streak
+      const today = new Date().toDateString();
+      const lastActive = localStorage.getItem('aksharam_last_active');
+      let streak = parseInt(localStorage.getItem('aksharam_streak') || '0', 10);
+      if (!lastActive) {
+        streak = 1;
+      } else if (lastActive !== today) {
+        const diffDays = Math.floor((new Date(today) - new Date(lastActive)) / (1000 * 60 * 60 * 24));
+        if (diffDays === 1) {
+          streak += 1;
+        } else if (diffDays > 1) {
+          streak = 1;
+        }
+      }
+      localStorage.setItem('aksharam_last_active', today);
+      localStorage.setItem('aksharam_streak', streak.toString());
+    } catch (e) {
+      console.warn('Could not save progress to localStorage', e);
+    }
   }
 }
